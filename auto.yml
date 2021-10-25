@@ -2,3 +2,5 @@
 #first Yml 
 task:
   - echo "helloworld"
+  - task:
+     - echo "$date"
