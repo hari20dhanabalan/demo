@@ -14,4 +14,4 @@ jobs:
           with:
             azure-devops-project-url: https://dev.azure.com/hari2011/sample  #https://dev.azure.com/organization/project-name
             azure-pipeline-name: 'PartsUnlimited'
-            azure-devops-token: 'sonybj5ez63qflhvisp7du3wojzxdbx3x42uf5z22usauepnoipq'
+            azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
