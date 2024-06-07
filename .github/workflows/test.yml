@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: if_issue
-      if: github.event.workflow_dispatch || github.event.push
+      if: ${{github.event.workflow_dispatch || github.event.push}}
       run: |
         echo An workflow_dispatch or push was closed
     - name: if_pr
