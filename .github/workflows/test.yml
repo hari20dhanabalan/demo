@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: if_issue
-      if: github.event_name == "push" 
+      if: github.event_name == 'push' 
       run: |
         echo An push was closed
     - name: if_pr
@@ -19,7 +19,7 @@ jobs:
       run: |
         echo A pull request was closed
     - name: if_pr
-      if: github.event_name == "workflow_dispatch"
+      if: github.event_name == 'workflow_dispatch'
       run: |
         echo A workflow_dispatch was closed
 
