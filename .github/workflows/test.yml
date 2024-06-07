@@ -1,16 +1,22 @@
 on:
+  push:
+    branches: ["main"]
   pull_request:
     branches: ["main"]
+    
+  workflow_dispatch:
 
 jobs:
   state_event_type:
     runs-on: ubuntu-latest
     steps:
     - name: if_issue
-      if: github.event.issue
+      if: github.event.workflow_dispatch || github.event.push
       run: |
-        echo An issue was closed
+        echo An workflow_dispatch or push was closed
     - name: if_pr
       if: github.event.pull_request
       run: |
         echo A pull request was closed
+
+      
