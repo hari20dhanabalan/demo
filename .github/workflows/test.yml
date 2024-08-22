@@ -1,6 +1,8 @@
 on:
   push:
     branches: ["main"]
+    paths:
+     - 'test1/**'
   pull_request:
     branches: ["main"]
     
