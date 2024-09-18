@@ -1,11 +1,6 @@
-name: Auto-Update of runner version
-concurrency: auto-update
- 
+name: Auto-Update of runner version 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 2'  # Runs at 00:00 on Tuesday (UTC)
- 
+  workflow_dispatch: 
 jobs:
   check_version:
     name: Check new Version Self-Hosted Runner Github Actions
