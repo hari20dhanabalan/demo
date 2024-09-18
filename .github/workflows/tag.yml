@@ -42,3 +42,15 @@ jobs:
           else
             echo "The actions-runner-linux-x64 asset was updated more than 8 days."
           fi
+  Testcheck:
+    name: vcheck
+    runs-on: ubuntu-latest
+    needs: [check_version]
+    steps:
+      - name: value
+        run: |
+          echo ${needs.check_version.outputs.gh-self-version}
+      
+    
+  
+  
