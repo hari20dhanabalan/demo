@@ -42,4 +42,4 @@ jobs:
           else
             echo "The actions-runner-linux-x64 asset was updated more than 8 days."
           fi
-	  echo ${check_version.outputs.gh-self-version)
+	  echo ${check_version.outputs.gh-self-version}
