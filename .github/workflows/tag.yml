@@ -36,10 +36,11 @@ jobs:
  
           # Check if the difference is less than or equal to 691200 seconds (8 days)
           echo $latest_tag
+	  echo "heloo"
+	  echo $check_version.outputs.gh-self-version
           if [ $time_difference -le 691200 ]; then
             echo "The actions-runner-linux-x64 asset was updated within 8 days."
             echo "GITHUB_CURRENT_TAG=$latest_tag" >> $GITHUB_OUTPUT
           else
             echo "The actions-runner-linux-x64 asset was updated more than 8 days."
           fi
-	  echo ${check_version.outputs.gh-self-version}
