@@ -49,7 +49,7 @@ jobs:
     steps:
       - name: value
         run: |
-          echo ${needs.check_version.outputs.gh-self-version}
+          echo ${{needs.check_version.outputs.gh-self-version}}
       
     
   
