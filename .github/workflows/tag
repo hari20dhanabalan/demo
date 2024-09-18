@@ -1,0 +1,50 @@
+name: Auto-Update of runner version
+concurrency: auto-update
+ 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 2'  # Runs at 00:00 on Tuesday (UTC)
+ 
+jobs:
+  check_version:
+    name: Check new Version Self-Hosted Runner Github Actions
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+    outputs:
+      gh-self-version: ${{ steps.check-version.outputs.GITHUB_CURRENT_TAG }} 
+    steps:
+      - name: Get latest version
+        id: check-version
+        run: |
+          # Get the current date and time in ISO 8601 format (UTC)
+          current_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+ 
+          # Get the JSON response from the GitHub API
+          response=$(curl --silent "https://api.github.com/repos/actions/runner/releases/latest")
+ 
+          # Extract the updated_at timestamp for the latest actions-runner-linux-x64 asset
+          updated_at=$(echo "$response" | jq -r '.assets[] | select(.name | startswith("actions-runner-linux-x64")) | .updated_at' | head -n 1)
+ 
+          # Extract the latest tag name
+          latest_tag=$(echo "$response" | jq -r '.tag_name')
+          latest_tag=$(echo "$latest_tag" | sed 's/^v//')
+ 
+          # Convert the current date and updated_at to seconds since epoch
+          current_date_seconds=$(date -d "$current_date" +%s)
+          updated_at_seconds=$(date -d "$updated_at" +%s)
+ 
+          # Calculate the difference in seconds
+          time_difference=$((current_date_seconds - updated_at_seconds))
+ 
+          # Check if the difference is less than or equal to 691200 seconds (8 days)
+          echo $latest_tag
+          if [ $time_difference -le 691200 ]; then
+            echo "The actions-runner-linux-x64 asset was updated within 8 days."
+            echo "GITHUB_CURRENT_TAG=$latest_tag" >> $GITHUB_OUTPUT
+          else
+            echo "The actions-runner-linux-x64 asset was updated more than 8 days."
+          fi
+		      echo ${check_version.outputs.gh-self-version)
